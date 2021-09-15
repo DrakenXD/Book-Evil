@@ -4921,11 +4921,11 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0
-  m_ShapeLightFalloffOffset: {x: 0, y: -30}
+  m_ShapeLightFalloffSize: 4
+  m_ShapeLightFalloffOffset: {x: 0, y: -10}
   m_ShapePath:
-  - {x: -0.50177944, y: -0.29380614, z: 0}
-  - {x: 0.55310225, y: -0.27046496, z: 0}
+  - {x: -1.3318894, y: -3.3084157, z: 0}
+  - {x: 1.470592, y: -3.2632296, z: 0}
   - {x: 0.56321645, y: 3.0918775, z: 0}
   - {x: -0.47892785, y: 3.0918214, z: 0}
 --- !u!1 &4828588267762715343

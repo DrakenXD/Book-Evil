@@ -14,9 +14,15 @@ public class Saint_Sword : MagicScript
 
             anim.SetTrigger("LightDisable");
 
-            Destroy(gameObject, 5);
-
             Destroy(magicObject);
         }
+        Invoke("AnimLightDisable", 2);
+
+        Destroy(magicObject,3f);
+    }
+
+    private void AnimLightDisable()
+    {
+        anim.SetTrigger("LightDisable");
     }
 }

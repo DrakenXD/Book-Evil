@@ -10,7 +10,8 @@ public class MagicController : MonoBehaviour
     {
         Transform EnemyPos = GameObject.FindGameObjectWithTag("Enemy").transform;
 
-        Instantiate(magicObject, new Vector3(EnemyPos.position.x, EnemyPos.position.y + 5, 1), Quaternion.identity);
-        
+        GameObject clone = Instantiate(magicObject, new Vector3(EnemyPos.position.x, EnemyPos.position.y + 5, 1), Quaternion.identity);
+
+        Destroy(clone, 10f);
     }
 }
