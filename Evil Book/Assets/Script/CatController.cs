@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class CatController : MonoBehaviour
 {
+    [SerializeField] private float MaxSpeed;
     [SerializeField] private float speed;
+
+    [SerializeField] private float SetTimeSpeed=1;
+    private float GetTimeSpeed;
+
     [SerializeField] private float distanceToPlayer;
+    [SerializeField] private bool transformCat;
 
     private Transform playerPos;
 
     [Header("          Components Unity")]
     [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer sprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,13 +58,65 @@ public class CatController : MonoBehaviour
             anim.SetBool("Deitando", true);
         }
 
+
+        if (transformCat)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+
+            if (GetTimeSpeed <= 0)
+            {
+                speed += 2;
+
+                GetTimeSpeed = SetTimeSpeed;
+            }
+            else GetTimeSpeed -= Time.deltaTime;
+
+            if (transform.position.x >= playerPos.position.x)
+            {
+                transform.localEulerAngles = new Vector3(0, 180, 0);
+            }
+            else if (transform.position.x <= playerPos.position.x)
+            {
+                transform.localEulerAngles = new Vector3(0, 0, 0);
+            }
+        }
        
     }
 
+    public void TransformCatAnimActivate()
+    {
+        transformCat=true;
+
+        anim.SetBool("Transformar", true);
+    }
+
+    public void TransformCatAnimDisable()
+    {
+        sprite.enabled = true;
+
+        transformCat = false;
+
+        anim.SetBool("Transformar", false);
+    }
 
     public void DeitarAtivarAnim()
     {
         anim.SetBool("Deitado", true);
     }
-   
+
+    public void PlayerGetBook()
+    {
+        FindObjectOfType<PlayerController>().GetBook();
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && transformCat && PlayerController.getBook)
+        {
+            sprite.enabled = false;
+            FindObjectOfType<PlayerController>().GetBookAnimActivate();
+            speed = MaxSpeed;
+        }
+    }
+
 }

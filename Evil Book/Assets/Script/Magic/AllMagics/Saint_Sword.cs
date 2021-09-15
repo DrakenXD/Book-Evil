@@ -10,8 +10,6 @@ public class Saint_Sword : MagicScript
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("acertou");
-
             anim.SetTrigger("LightDisable");
 
             Destroy(magicObject);

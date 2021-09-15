@@ -6,6 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerStats stats;
     public static bool canMove;
+    public static bool getBook;
+
+
+    [Header("          Time To Get Book")]
+    [SerializeField] private float SetTimeBook=1f;
+    private float GetTimeBook; 
 
     [Header("          Components Unity")]
     [SerializeField] private Rigidbody2D rb;
@@ -22,13 +28,46 @@ public class PlayerController : MonoBehaviour
 
     public void Magics()
     {
-        
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (GetTimeBook <= 0)
+        {
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                GetTimeBook = SetTimeBook;
+
+                if (!getBook)
+                {
+                    ActivateTransformCat();
+                }
+                else if (getBook)
+                {
+                    getBook = false;
+                    anim.SetBool("Livro", false);
+                    FindObjectOfType<CatController>().TransformCatAnimDisable();
+                }
+            }
+        }
+        else if(GetTimeBook > 0) GetTimeBook -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && getBook)
         {
             anim.SetBool("Magic1", true);
         
         }
     }
+    private void ActivateTransformCat()
+    {
+        FindObjectOfType<CatController>().TransformCatAnimActivate();
+    }
+    public void GetBook()
+    {
+        getBook = true;
+        
+    }
+    public void GetBookAnimActivate()
+    {
+        anim.SetBool("Livro", true);
+    }
+
     public void Magia1Active()
     {
         FindObjectOfType<MagicController>().MagicAttack();
@@ -57,6 +96,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("Move", false);
+
+
         }
 
 
