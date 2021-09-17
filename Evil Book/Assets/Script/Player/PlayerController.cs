@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public static bool getBook;
 
 
+    [SerializeField] private WeaponController weaponcontroller;
+    [SerializeField] private Transform pointEffect;
     [Header("          Time To Get Book")]
     [SerializeField] private float SetTimeBook=1f;
     private float GetTimeBook; 
@@ -23,8 +25,23 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Magics();
+        AttackNormal();
     }
 
+    private void AttackNormal()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            
+            anim.SetTrigger("Atacar");
+            
+        }
+    }
+    public void ActivateEffect()
+    {
+        GameObject clone = Instantiate(weaponcontroller.effects, pointEffect.position, pointEffect.rotation);
+        Destroy(clone, .3f);
+    }
 
     public void Magics()
     {
@@ -51,9 +68,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && getBook)
         {
             anim.SetBool("Magic1", true);
-        
         }
     }
+
     private void ActivateTransformCat()
     {
         FindObjectOfType<CatController>().TransformCatAnimActivate();
@@ -67,7 +84,6 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetBool("Livro", true);
     }
-
     public void Magia1Active()
     {
         FindObjectOfType<MagicController>().MagicAttack();
@@ -76,7 +92,6 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetBool("Magic1", false);
     }
-
     public void Movement()
     {
         float x = Input.GetAxisRaw("Horizontal");
