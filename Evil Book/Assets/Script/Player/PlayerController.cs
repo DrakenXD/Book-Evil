@@ -26,6 +26,12 @@ public class PlayerController : MonoBehaviour
         Movement();
         Magics();
         AttackNormal();
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.velocity = new Vector2(rb.velocity.x,5);
+        }
     }
 
     private void AttackNormal()
