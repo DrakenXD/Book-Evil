@@ -9742,7 +9742,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4828588267762715341}
   - component: {fileID: 4828588267762715340}
-  - component: {fileID: 1561085815846885251}
   - component: {fileID: 4424461090602923966}
   - component: {fileID: 8963211431496878791}
   m_Layer: 0
@@ -9821,27 +9820,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &1561085815846885251
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828588267762715343}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 2
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!61 &4424461090602923966
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9881,8 +9859,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: c4341ab3ff698e448a15e820173a4dd6, type: 2}
-  magicObject: {fileID: 4828588267762715343}
+  kind_of_magic: 0
   anim: {fileID: 1676992845308952602}
+  magicObject: {fileID: 4828588267762715343}
 --- !u!1 &4828588267970674533
 GameObject:
   m_ObjectHideFlags: 0

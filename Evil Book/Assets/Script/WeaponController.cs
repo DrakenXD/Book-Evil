@@ -7,7 +7,12 @@ public class WeaponController : ScriptableObject
 {
     public Sprite S_icon;
     public GameObject effects;
-   
+    public AnimationClip attack;
 
          
+
+    public AnimationClip GetAttackAnimation()
+    {
+        return attack;
+    }
 }

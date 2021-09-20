@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   S_icon: {fileID: 0}
   effects: {fileID: 6212295604112002384, guid: 602cdf2d27d019540b19b174a9341333, type: 3}
-  animAttack: {fileID: 9100000, guid: c75bf75de6714434e94e777ee7ebe1c9, type: 2}
+  attack: {fileID: 7400000, guid: d1541e601c9f64b4ca8d87e4788893a3, type: 2}
