@@ -10,9 +10,6 @@ public class MagicScript : MonoBehaviour
     [Header("         ComponentsUnity")]
     [SerializeField] protected Animator anim;
 
-    public virtual void CreateMagic(Vector3 NewEnemyPos)
-    {
-        //infomarções
-    }
+  
 
 }
