@@ -8,4 +8,6 @@ public class EnemyStats : ScriptableObject
     public int MaxLife;
     public int MaxDamage;
     public int damage;
+    public float MaxSpeed;
+    
 }
