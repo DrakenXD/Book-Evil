@@ -10,23 +10,28 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float speed;
 
     [Header("          Patrol")]
-    [SerializeField] private Transform[] PointPatrol;
-    [SerializeField] private int indexPoint;
+    [SerializeField] private Transform[] PontoParaAndar;
+    [SerializeField] private int NumPonto;
     [SerializeField] private float timeIdle;
     private float t_idle;
 
     [Header("          Attetion")]
-    [SerializeField] private GameObject Attetion;
-    [SerializeField] private Vector2 local;
-    [SerializeField] private float DistanceAttetion;
+    [SerializeField] private GameObject G_Atencao;
+    [SerializeField] private Vector2 PosLocal;
+    
     [SerializeField] private bool somethingdetected;
     [SerializeField] private float timeStoplooking;
     private float t_stoplooking;
 
+    [Header("          Distancias")] 
+    [SerializeField] private float DistanciaDeObservacao;
+    [SerializeField] private float DistanciaParaSeguir;
+    [SerializeField] private float DistanciaParaAtacar;
+
 
     [Header("          Follow Target")]
     [SerializeField] private Transform target;
-    [SerializeField] private float DistanceFollowTarget;
+   
 
     [Header("          Components Unity")]
     [SerializeField] private Animator anim;
@@ -42,6 +47,72 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        switch (enemystate)
+        {
+            case EnemyState.Patrol:
+                if (Vector2.Distance(transform.position, PontoParaAndar[NumPonto].position) < 2f)
+                {
+                    if (t_idle <= 0)
+                    {
+                        NumPonto++;
+
+                        if (NumPonto > PontoParaAndar.Length - 1) NumPonto = 0;
+
+                        t_idle = timeIdle;
+                    }
+                    else
+                    {
+                        anim.SetBool("Andar", false);
+
+                        t_idle -= Time.deltaTime;
+                    }
+
+                }
+                else
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, PontoParaAndar[NumPonto].position, speed * Time.deltaTime);
+
+
+                    if (transform.position.x <= PontoParaAndar[NumPonto].position.x)
+                    {
+                        transform.localEulerAngles = new Vector3(0, 0, 0);
+                    }
+                    else if (transform.position.x >= PontoParaAndar[NumPonto].position.x)
+                    {
+                        transform.localEulerAngles = new Vector3(0, 180, 0);
+                    }
+
+                    anim.SetBool("Andar", true);
+                }
+                break;
+            case EnemyState.Follow:
+
+                if (Vector2.Distance(transform.position, target.position) < DistanciaParaSeguir)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+
+                    if (transform.position.x <= target.position.x)
+                    {
+                        transform.localEulerAngles = new Vector3(0, 0, 0);
+                    }
+                    else if (transform.position.x >= target.position.x)
+                    {
+                        transform.localEulerAngles = new Vector3(0, 180, 0);
+                    }
+                }
+
+                break;
+        }
+    }
+
+    private void Condicoes()
+    {
+
+    }
+
+    /*
     private void Update()
     {
 
@@ -74,7 +145,7 @@ public class EnemyController : MonoBehaviour
                     {
                         
 
-                        anim.SetBool("Andar", false);
+                         anim.SetBool("Andar", false);
 
                         t_idle -= Time.deltaTime;
                     } 
@@ -128,6 +199,7 @@ public class EnemyController : MonoBehaviour
                 }
 
                 anim.SetBool("Andar", true);
+
 
 
 
@@ -193,6 +265,7 @@ public class EnemyController : MonoBehaviour
 
        
     }
+    */
 
     private enum EnemyState
     {
@@ -210,8 +283,10 @@ public class EnemyController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, DistanceAttetion);
+        Gizmos.DrawWireSphere(transform.position, DistanciaDeObservacao);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, DistanciaParaSeguir);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, DistanceFollowTarget);
+        Gizmos.DrawWireSphere(transform.position, DistanciaParaAtacar);
     }
 }
