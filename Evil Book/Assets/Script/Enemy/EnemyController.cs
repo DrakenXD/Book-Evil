@@ -4,29 +4,37 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private EnemyStats stats;
-    [SerializeField] private EnemyState enemystate;
-    [SerializeField] private int life;
-    [SerializeField] private float speed;
+    [SerializeField] protected EnemyStats stats;
+    [SerializeField] protected EnemyState enemystate;
+    [SerializeField] protected int life;
+    [SerializeField] protected float speed;
+
+
 
     [Header("          Patrol")]
-    [SerializeField] private Transform[] PontoParaAndar;
-    [SerializeField] private int NumPonto;
-    [SerializeField] private float timeIdle;
-    private float t_idle;
+    [SerializeField] protected Transform[] PontoParaAndar;
+    [SerializeField] protected int NumPonto;
+    [SerializeField] protected float timeIdle;
+    protected float t_idle;
 
     [Header("          Attetion")]
-    [SerializeField] private GameObject G_Atencao;
-    [SerializeField] private Vector2 PosLocal;
-    
-    [SerializeField] private bool somethingdetected;
-    [SerializeField] private float timeStoplooking;
-    private float t_stoplooking;
+    [SerializeField] protected private GameObject G_Atencao;
+    [SerializeField] protected Vector2 PosLocal;  
+    [SerializeField] protected bool somethingdetected;
+    [SerializeField] protected float timeStoplooking;
+    protected float t_stoplooking;
 
     [Header("          Distancias")] 
-    [SerializeField] private float DistanciaDeObservacao;
-    [SerializeField] private float DistanciaParaSeguir;
-    [SerializeField] private float DistanciaParaAtacar;
+    [SerializeField] protected float DistanciaDeObservacao;
+    [SerializeField] protected float DistanciaParaSeguir;
+    [SerializeField] protected float DistanciaParaAtacar;
+
+    [Header("          Condições")]
+    [SerializeField] protected bool Morto;
+    [SerializeField] protected bool Observando;
+    [SerializeField] protected bool Seguindo;
+    [SerializeField] protected bool patrulhar;
+    [SerializeField] protected bool Atacando;
 
 
     [Header("          Follow Target")]
@@ -49,6 +57,8 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        Condicoes();
+
         switch (enemystate)
         {
             case EnemyState.Patrol:
@@ -89,26 +99,142 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyState.Follow:
 
-                if (Vector2.Distance(transform.position, target.position) < DistanciaParaSeguir)
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
-                    if (transform.position.x <= target.position.x)
-                    {
-                        transform.localEulerAngles = new Vector3(0, 0, 0);
-                    }
-                    else if (transform.position.x >= target.position.x)
-                    {
-                        transform.localEulerAngles = new Vector3(0, 180, 0);
-                    }
+                if (transform.position.x <= target.position.x)
+                {
+                    transform.localEulerAngles = new Vector3(0, 0, 0);
+                }
+                else if (transform.position.x >= target.position.x)
+                {
+                    transform.localEulerAngles = new Vector3(0, 180, 0);
                 }
 
+                break;
+            case EnemyState.SeeLocation:
+                if (Vector2.Distance(transform.position, PosLocal) <= 2f)
+                {
+                    anim.SetBool("Andar", false);
+
+                    if (t_stoplooking <= 0)
+                    {
+                        Observando = false;
+                    }
+                    else t_stoplooking -= Time.deltaTime;
+                }
+                else
+                {
+                    anim.SetBool("Andar", true);
+
+                    transform.position = Vector2.MoveTowards(transform.position, PosLocal, speed * Time.deltaTime);
+                }
+
+
+
+                
+
+                if (transform.position.x <= PosLocal.x)
+                {
+                    transform.localEulerAngles = new Vector3(0, 0, 0);
+                }
+                else if (transform.position.x >= PosLocal.x)
+                {
+                    transform.localEulerAngles = new Vector3(0, 180, 0);
+                }
+
+                anim.SetBool("Andar", true);
+
+                break;
+            case EnemyState.Attack:
+                anim.SetBool("Atacar", true);
                 break;
         }
     }
 
     private void Condicoes()
     {
+        if (Morto)
+        {
+
+        }
+        else
+        {
+            if (Vector2.Distance(transform.position, target.position) <= DistanciaParaAtacar)
+            {
+                Atacando = true;
+
+                Observando = false;
+
+                
+
+                enemystate = EnemyState.Attack;
+            }
+            else
+            {
+                if (Vector2.Distance(transform.position, target.position) <= DistanciaDeObservacao && 
+                    Vector2.Distance(transform.position, target.position) >= DistanciaParaAtacar)
+                {
+                    Observando = true;
+
+                    patrulhar = false;
+
+                    enemystate = EnemyState.SeeLocation;
+
+                    if (PosLocal.x == 0) PosLocal = target.position;
+
+
+                    if (Vector2.Distance(transform.position, target.position) >= DistanciaParaAtacar)
+                    {
+                        Seguindo = true;
+
+                        if (PosLocal.x != 0) PosLocal = new Vector2(0,0);
+
+                        enemystate = EnemyState.Follow;
+                    }
+                    else
+                    {
+                        Seguindo = false;
+                       
+                        
+                    }
+                }
+                else
+                {
+                  
+                    if (!Observando)
+                    {
+                        if (PosLocal.x != 0) PosLocal = new Vector2(0, 0);
+
+                        enemystate = EnemyState.Patrol;
+
+                        
+
+                        Seguindo = false;
+
+                        patrulhar = true;
+                    }
+              
+                }
+
+              
+             
+            }
+
+            
+
+
+
+
+
+        }
+
+
+    }
+
+    public void DisableAttack()
+    {
+        Atacando = false;
+        anim.SetBool("Atacar", false);
 
     }
 
@@ -267,11 +393,12 @@ public class EnemyController : MonoBehaviour
     }
     */
 
-    private enum EnemyState
+    protected enum EnemyState
     {
         Patrol,
         Follow,
         SeeLocation,
+        Attack,
     }
 
     public void TakeDamage(int dmg)
