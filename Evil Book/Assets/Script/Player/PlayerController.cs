@@ -36,6 +36,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int dmg)
+    {
+        stats.life -= dmg;
+
+        
+    }
+
     private void AttackNormal()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))

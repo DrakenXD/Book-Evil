@@ -380,6 +380,7 @@ Transform:
   m_Children:
   - {fileID: 1265224925}
   - {fileID: 514952505}
+  - {fileID: 1745920759}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -396,7 +397,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.16}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -407,7 +408,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.54646504, y: 0.6976434}
   m_EdgeRadius: 0
 --- !u!50 &263303610
 Rigidbody2D:
@@ -446,18 +447,26 @@ MonoBehaviour:
   enemystate: 0
   life: 0
   speed: 0
-  PointPatrol:
+  Bullet: {fileID: 902266438711382383, guid: e5c3e8e5f6b2c234995dfaf35ebcd6d0, type: 3}
+  pointShot: {fileID: 1745920759}
+  PontoParaAndar:
   - {fileID: 1924312863}
   - {fileID: 573128209}
-  indexPoint: 0
+  NumPonto: 0
   timeIdle: 1
-  Attetion: {fileID: 514952503}
-  local: {x: 0, y: 0}
-  DistanceAttetion: 10
+  G_Atencao: {fileID: 514952503}
+  PosLocal: {x: 0, y: 0}
   somethingdetected: 0
   timeStoplooking: 2
+  DistanciaDeObservacao: 15
+  DistanciaParaSeguir: 12
+  DistanciaParaAtacar: 10
+  Morto: 0
+  Observando: 0
+  Seguindo: 0
+  patrulhar: 0
+  Atacando: 0
   target: {fileID: 0}
-  DistanceFollowTarget: 2
   anim: {fileID: 263303612}
 --- !u!95 &263303612
 Animator:
@@ -675,7 +684,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &603207340
 GameObject:
@@ -946,7 +955,7 @@ MonoBehaviour:
   m_Color: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
   m_Intensity: 1.2
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 878302f4
+  m_ApplyToSortingLayers: 00000000878302f4c759238f
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -1489,6 +1498,36 @@ MonoBehaviour:
   - {x: 0.31689334, y: 0.33028156, z: 0}
   - {x: 0.16146453, y: 0.32572207, z: 0}
   - {x: -0.0052139903, y: 0.33128807, z: 0}
+--- !u!1 &1745920758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1745920759}
+  m_Layer: 0
+  m_Name: pointShot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1745920759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745920758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.22, y: -0.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 263303608}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1924312862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,7 +1556,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930151019
 GameObject:
