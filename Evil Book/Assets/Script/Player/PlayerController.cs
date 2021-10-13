@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour
 
 
     [SerializeField] private WeaponController weaponcontroller;
-    const string Attack_trigger = "Atacar";
 
-    [SerializeField] private Transform pointEffect;
     [Header("          Time To Get Book")]
     [SerializeField] private float SetTimeBook=1f;
     private float GetTimeBook; 

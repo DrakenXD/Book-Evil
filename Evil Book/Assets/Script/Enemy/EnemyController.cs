@@ -12,6 +12,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected GameObject Bullet;
     [SerializeField] protected Transform pointShot;
 
+    [Header("          Effects")]
+    [SerializeField] protected GameObject effectblood;
+
     [Header("          Patrol")]
     [SerializeField] protected Transform[] PontoParaAndar;
     [SerializeField] protected int NumPonto;
@@ -66,15 +69,19 @@ public class EnemyController : MonoBehaviour
         switch (enemystate)
         {
             case EnemyState.Patrol:
+                G_Atencao.SetActive(false);
                 Patrulhar();
                 break;
             case EnemyState.Follow:
+                G_Atencao.SetActive(false);
                 SeguirAlvo();          
                 break;
             case EnemyState.SeeLocation:
+                G_Atencao.SetActive(true);
                 VerLocal();
                 break;
             case EnemyState.Attack:
+                G_Atencao.SetActive(false);
                 Atacar();
                 break;
         }
@@ -109,10 +116,12 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void VerLocal()
     {
-
+        
         if (Vector2.Distance(transform.position, PosLocal) <= 2f)
         {
-            G_Atencao.SetActive(false);
+            // parado no local suspeito
+
+       
 
             anim.SetBool("Andar", false);
 
@@ -120,12 +129,20 @@ public class EnemyController : MonoBehaviour
             {
                 Observando = false;
                 t_stoplooking = timeStoplooking;
+
+
             }
-            else t_stoplooking -= Time.deltaTime;
+            else {
+                
+                t_stoplooking -= Time.deltaTime; 
+            }
+
         }
         else
         {
-            G_Atencao.SetActive(true);
+            // andando até o local suspeito
+
+           
 
             anim.SetBool("Andar", true);
 
@@ -141,7 +158,7 @@ public class EnemyController : MonoBehaviour
             transform.localEulerAngles = new Vector3(0, 180, 0);
         }
 
-        anim.SetBool("Andar", true);
+        
     }
     protected virtual void Patrulhar()
     {
@@ -195,8 +212,6 @@ public class EnemyController : MonoBehaviour
 
                 Observando = false;
 
-                
-
                 enemystate = EnemyState.Attack;
             }
             else
@@ -216,6 +231,8 @@ public class EnemyController : MonoBehaviour
                     if (Vector2.Distance(transform.position, target.position) <= DistanciaParaSeguir)
                     {
                         Seguindo = true;
+
+               
 
                         if (PosLocal.x != 0) PosLocal = new Vector2(0,0);
 
@@ -237,7 +254,7 @@ public class EnemyController : MonoBehaviour
 
                         enemystate = EnemyState.Patrol;
 
-                        
+                   
 
                         Seguindo = false;
 
@@ -255,162 +272,6 @@ public class EnemyController : MonoBehaviour
         anim.SetBool("Atacar", false);
 
     }
-
-    /*
-    private void Update()
-    {
-
-        Conditions();
-
-
-
-
-
-
-
-
-
-        switch (enemystate)
-        {
-            case EnemyState.Patrol:
-                if (Vector2.Distance(transform.position, PointPatrol[indexPoint].position) < 2f)
-                {
-                    if (t_idle <= 0)
-                    {
-                        indexPoint++;
-
-                        if (indexPoint > PointPatrol.Length -1) indexPoint = 0;
-
-                        t_idle = timeIdle;
-
-
-                    }
-                    else
-                    {
-                        
-
-                         anim.SetBool("Andar", false);
-
-                        t_idle -= Time.deltaTime;
-                    } 
-                        
-                }
-                else
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, PointPatrol[indexPoint].position, speed * Time.deltaTime);
-
-
-                    if (transform.position.x <= PointPatrol[indexPoint].position.x)
-                    {
-                        transform.localEulerAngles = new Vector3(0, 0, 0);
-                    }
-                    else if (transform.position.x >= PointPatrol[indexPoint].position.x)
-                    {
-                        transform.localEulerAngles = new Vector3(0, 180, 0);
-                    }
-
-                    anim.SetBool("Andar", true);
-                }
-                break;
-            case EnemyState.Follow:
-
-                if (Vector2.Distance(transform.position, target.position) < DistanceFollowTarget)
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-               
-                    if (transform.position.x <= target.position.x)
-                    {
-                        transform.localEulerAngles = new Vector3(0, 0, 0);
-                    }
-                    else if (transform.position.x >= target.position.x)
-                    {
-                        transform.localEulerAngles = new Vector3(0, 180, 0);
-                    }
-                }
-
-                break;
-            case EnemyState.SeeLocation:
-
-                transform.position = Vector2.MoveTowards(transform.position, local, speed * Time.deltaTime);
-
-                if (transform.position.x <= local.x)
-                {
-                    transform.localEulerAngles = new Vector3(0, 0, 0);
-                }
-                else if (transform.position.x >= local.x)
-                {
-                    transform.localEulerAngles = new Vector3(0, 180, 0);
-                }
-
-                anim.SetBool("Andar", true);
-
-
-
-
-                break;
-        }
-    }
-
-    private void Conditions()
-    {
-        if (Vector2.Distance(transform.position, target.position) < DistanceAttetion && Vector2.Distance(transform.position, target.position) > DistanceFollowTarget)
-        {
-            t_stoplooking = timeStoplooking;
-
-            if (local.x == 0)
-            {
-                local = target.position;
-            }
-
-            enemystate = EnemyState.SeeLocation;
-
-            Attetion.SetActive(true);
-
-            somethingdetected = true;
-        }
-        else
-        {
-
-            if (!somethingdetected)
-            {
-                if (Vector2.Distance(transform.position, target.position) < DistanceFollowTarget)
-                {
-                    enemystate = EnemyState.Follow;
-
-                }
-                else
-                {
-                    enemystate = EnemyState.Patrol;
-
-                }
-            }
-            else
-            {
-                if (Vector2.Distance(transform.position, local) < 1f)
-                {
-                    if (t_stoplooking <= 0)
-                    {
-                        Attetion.SetActive(false);
-
-                        somethingdetected = false;
-
-                        anim.SetBool("Andar", false);
-
-                        local = new Vector2(0,0);
-
-                        t_stoplooking = timeStoplooking;
-                    }
-                    else t_stoplooking -= Time.deltaTime;
-                }
-            }
-           
-        }
-
-
-       
-    }
-    */
-
     protected enum EnemyState
     {
         Patrol,
@@ -422,6 +283,10 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         life -= dmg;
+
+        GameObject cloneEffect = Instantiate(effectblood,transform.position,Quaternion.identity);
+        Destroy(cloneEffect,20f);
+        
         if (life <= 0) Destroy(gameObject);
     }
 
