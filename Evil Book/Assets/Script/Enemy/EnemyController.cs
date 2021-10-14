@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] protected EnemyStats stats;
+    public EnemyStats stats;
     [SerializeField] protected EnemyState enemystate;
     [SerializeField] protected int life;
     [SerializeField] protected float speed;
@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected Transform pointShot;
 
     [Header("          Effects")]
-    [SerializeField] protected GameObject effectblood;
+    [SerializeField] protected GameObject[] effectblood;
 
     [Header("          Patrol")]
     [SerializeField] protected Transform[] PontoParaAndar;
@@ -284,12 +284,42 @@ public class EnemyController : MonoBehaviour
     {
         life -= dmg;
 
-        GameObject cloneEffect = Instantiate(effectblood,transform.position,Quaternion.identity);
-        Destroy(cloneEffect,20f);
-        
-        if (life <= 0) Destroy(gameObject);
+        EffectBlood(0);
+
+        if (life <= 0)
+        {
+
+            Morto = true;
+
+            if (MagicController.getBook)
+            {
+                anim.SetBool("SaintSword", true);
+                Destroy(gameObject, .5f);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            EffectBlood(1);
+
+           
+        }
+
+            
     }
 
+    public void EffectBlood(int i)
+    {
+        GameObject cloneEffect = Instantiate(effectblood[i], transform.position, Quaternion.identity);
+        Destroy(cloneEffect, 20f);
+    }
+
+    public int GetLife()
+    {
+        return life;
+    }
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
