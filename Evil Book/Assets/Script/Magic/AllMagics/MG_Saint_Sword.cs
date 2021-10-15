@@ -5,35 +5,39 @@ using UnityEngine;
 public class MG_Saint_Sword : MagicScript 
 {
     
-
+    [SerializeField] private Collider2D col;
     float speed;
+
+    private void Start()
+    {
+        col.enabled = false;
+    }
     private void Update()
     {
-        if (speed <= 2f) speed += 1f * Time.deltaTime;
-        else speed += 4f * Time.deltaTime;
+        if (speed <= .5f) speed += 1f * Time.deltaTime;
+        else
+        {
+            if (!col.enabled) col.enabled = true;
+            speed += 4f * Time.deltaTime;
+        }
+            
 
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x,-100,transform.position.z),speed);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            var porcentagemDaVida = collision.gameObject.GetComponent<EnemyController>().stats.MaxLife * ((double) MagicController.PorcenInstantKill / 100);
 
-            if (collision.gameObject.GetComponent<EnemyController>().GetLife() <= porcentagemDaVida)
-            {
-                collision.gameObject.GetComponent<EnemyController>().TakeDamage(999);
-            }
-            else
-            {
-                collision.gameObject.GetComponent<EnemyController>().TakeDamage(stats.damage);
-            }
+
+            collision.gameObject.GetComponent<EnemyController>().TakeDamage(999);
 
             anim.SetTrigger("LightDisable");
 
             Destroy(gameObject);
         }
+
         Invoke("AnimLightDisable", 2);
 
         Destroy(gameObject, 3f);

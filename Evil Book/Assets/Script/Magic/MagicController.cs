@@ -8,7 +8,8 @@ public class MagicController : MonoBehaviour
 
     public MagicStats magic;
 
-    [SerializeField] private GameObject EnemyPos;
+    [SerializeField] private GameObject[] enemies;
+    [SerializeField] private Transform EnemyPos;
 
 
     [Header("          Components Book")]
@@ -21,32 +22,18 @@ public class MagicController : MonoBehaviour
     [Header("          Components Unity")]
 
     [SerializeField] private Animator anim;
-    private void ActivateTransformCat()
-    {
-        FindObjectOfType<CatController>().TransformCatAnimActivate();
-    }
-    public void GetBook()
-    {
-        getBook = true;
 
-    }
-    public void GetBookAnimActivate()
+    private void Start()
     {
-        anim.SetBool("Livro", true);
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
-    public void Magia1Active()
-    {
-        FindObjectOfType<MagicController>().MagicAttack();
-    }
-    public void Magia1Disable()
-    {
-        anim.SetBool("Magic1", false);
-    }
+
+    
     public void MagicAttack()
     {
       
 
-        GameObject clone = Instantiate(magic.MagicPrefab, new Vector3(EnemyPos.transform.position.x, EnemyPos.transform.position.y + 5, 0), Quaternion.identity);
+        GameObject clone = Instantiate(magic.MagicPrefab, new Vector3(EnemyPos.position.x, EnemyPos.position.y + 5, 0), Quaternion.identity);
 
         Destroy(clone, 10f);
 
@@ -83,20 +70,48 @@ public class MagicController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && getBook)
         {
-            EnemyPos = GameObject.FindGameObjectWithTag("Enemy").gameObject;
+            
 
-            var porcentagemDaVida = EnemyPos.gameObject.GetComponent<EnemyController>().stats.MaxLife * ((double) PorcenInstantKill / 100);
-
-            Debug.Log(porcentagemDaVida);
-
-            if (EnemyPos.gameObject.GetComponent<EnemyController>().GetLife() <= porcentagemDaVida)
+            foreach (GameObject enemy in enemies)
             {
-                anim.SetBool("Magic1", true);
+                
 
-              
+                var porcentagemDaVida = enemy.gameObject.GetComponent<EnemyController>().stats.MaxLife * ((double)PorcenInstantKill / 100);
+
+                Debug.Log(porcentagemDaVida);
+
+                if (enemy.gameObject.GetComponent<EnemyController>().GetLife() <= porcentagemDaVida)
+                {
+                    EnemyPos = enemy.transform;
+
+                    anim.SetBool("Magic1", true);
+
+
+                }
             }
             
         }
     }
 
+    private void ActivateTransformCat()
+    {
+        FindObjectOfType<CatController>().TransformCatAnimActivate();
+    }
+    public void GetBook()
+    {
+        getBook = true;
+
+    }
+    public void GetBookAnimActivate()
+    {
+        anim.SetBool("Livro", true);
+    }
+    public void Magia1Active()
+    {
+        FindObjectOfType<MagicController>().MagicAttack();
+    }
+    public void Magia1Disable()
+    {
+        anim.SetBool("Magic1", false);
+    }
 }
