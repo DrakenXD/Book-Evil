@@ -305,11 +305,11 @@ GameObject:
   m_Component:
   - component: {fileID: 263303608}
   - component: {fileID: 263303607}
-  - component: {fileID: 263303609}
-  - component: {fileID: 263303610}
   - component: {fileID: 263303611}
+  - component: {fileID: 263303610}
+  - component: {fileID: 263303609}
   - component: {fileID: 263303612}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.16}
+  m_Offset: {x: -0.06, y: -0.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -408,7 +408,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.54646504, y: 0.6976434}
+  m_Size: {x: 0.55, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &263303610
 Rigidbody2D:
@@ -449,6 +449,9 @@ MonoBehaviour:
   speed: 0
   Bullet: {fileID: 902266438711382383, guid: e5c3e8e5f6b2c234995dfaf35ebcd6d0, type: 3}
   pointShot: {fileID: 1745920759}
+  effectblood:
+  - {fileID: 7247439609424933245, guid: d8e61fbdb2feba94993f2d9086dd0abf, type: 3}
+  - {fileID: 758894227524455196, guid: ed15bf0b82d7db546aa83c82b6b83232, type: 3}
   PontoParaAndar:
   - {fileID: 1924312863}
   - {fileID: 573128209}
@@ -680,7 +683,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573128208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.51, y: -3.48, z: -8.710982}
+  m_LocalPosition: {x: 5.15, y: -3.48, z: -8.710982}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -698,6 +701,7 @@ GameObject:
   - component: {fileID: 603207342}
   - component: {fileID: 603207346}
   - component: {fileID: 603207347}
+  - component: {fileID: 603207348}
   - component: {fileID: 603207341}
   - component: {fileID: 603207345}
   - component: {fileID: 603207344}
@@ -786,7 +790,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603207340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.72, y: -0.7, z: 0}
+  m_LocalPosition: {x: -16.96, y: -0.7, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 1482516389}
@@ -845,11 +849,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 442969185d566c0408e8b543d30794ce, type: 2}
   weaponcontroller: {fileID: 11400000, guid: 9ea4e8e1a523238429f0765165466606, type: 2}
-  pointEffect: {fileID: 1143202317}
-  SetTimeBook: 1
   rb: {fileID: 603207345}
   anim: {fileID: 603207341}
-  aa: {fileID: 0}
 --- !u!114 &603207347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,6 +864,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magic: {fileID: 11400000, guid: c4341ab3ff698e448a15e820173a4dd6, type: 2}
+  enemies: []
+  EnemyPos: {fileID: 0}
+  SetTimeBook: 1
+  anim: {fileID: 603207341}
+--- !u!114 &603207348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603207340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da674c6559980d14cbd903db5f54b145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointAttack: {fileID: 1143202317}
+  A_layer:
+    serializedVersion: 2
+    m_Bits: 256
+  A_radius: 0.5
+  damage: 10
 --- !u!1 &642993375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1094,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054324382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.72, y: 0.70000035, z: -10}
+  m_LocalPosition: {x: -16.96, y: 0.70000035, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1062531311}
@@ -1221,7 +1244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1143202317}
   m_Layer: 3
-  m_Name: pointEffect
+  m_Name: pointAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1235,7 +1258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143202316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.85, y: -0.05, z: 0}
+  m_LocalPosition: {x: 0.551, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 603207343}

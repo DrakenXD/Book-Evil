@@ -9830,7 +9830,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.035307884}
@@ -9861,6 +9861,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: c4341ab3ff698e448a15e820173a4dd6, type: 2}
   kind_of_magic: 0
   anim: {fileID: 9107760209038743402}
+  col: {fileID: 6072669067508883662}
 --- !u!1 &3036047160244217877
 GameObject:
   m_ObjectHideFlags: 0

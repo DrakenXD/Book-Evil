@@ -6,27 +6,23 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerStats stats;
     public static bool canMove;
-    public static bool getBook;
+  
 
 
     [SerializeField] private WeaponController weaponcontroller;
-    const string Attack_trigger = "Atacar";
 
-    [SerializeField] private Transform pointEffect;
-    [Header("          Time To Get Book")]
-    [SerializeField] private float SetTimeBook=1f;
-    private float GetTimeBook; 
+    
 
     [Header("          Components Unity")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator anim;
-    [SerializeField] private RuntimeAnimatorController aa;
+
 
     // Update is called once per frame
     void Update()
     {
         Movement();
-        Magics();
+       
         AttackNormal();
 
 
@@ -55,34 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetBool("Atacar", false);
     }
-    public void Magics()
-    {
-        if (GetTimeBook <= 0)
-        {
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                GetTimeBook = SetTimeBook;
-
-                if (!getBook)
-                {
-                    ActivateTransformCat();
-                }
-                else if (getBook)
-                {
-                    getBook = false;
-                    anim.SetBool("Livro", false);
-                    FindObjectOfType<CatController>().TransformCatAnimDisable();
-                }
-            }
-        }
-        else if(GetTimeBook > 0) GetTimeBook -= Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) && getBook)
-        {
-            anim.SetBool("Magic1", true);
-        }
-    }
-
+   
   
     public void Movement()
     {
@@ -111,30 +80,6 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(x * stats.speed, rb.velocity.y);
     }
 
-    #region BookMetods
-
-    private void ActivateTransformCat()
-    {
-        FindObjectOfType<CatController>().TransformCatAnimActivate();
-    }
-    public void GetBook()
-    {
-        getBook = true;
-
-    }
-    public void GetBookAnimActivate()
-    {
-        anim.SetBool("Livro", true);
-    }
-    public void Magia1Active()
-    {
-        FindObjectOfType<MagicController>().MagicAttack();
-    }
-    public void Magia1Disable()
-    {
-        anim.SetBool("Magic1", false);
-    }
-    #endregion
 }
 
 

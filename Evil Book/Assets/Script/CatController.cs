@@ -106,15 +106,15 @@ public class CatController : MonoBehaviour
 
     public void PlayerGetBook()
     {
-        FindObjectOfType<PlayerController>().GetBook();
+        FindObjectOfType<MagicController>().GetBook();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && transformCat && PlayerController.getBook)
+        if (collision.gameObject.CompareTag("Player") && transformCat && MagicController.getBook)
         {
             sprite.enabled = false;
-            FindObjectOfType<PlayerController>().GetBookAnimActivate();
+            FindObjectOfType<MagicController>().GetBookAnimActivate();
             speed = MaxSpeed;
         }
     }
