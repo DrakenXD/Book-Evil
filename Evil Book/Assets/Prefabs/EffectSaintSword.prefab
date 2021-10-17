@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8412796554054616464}
   - component: {fileID: 572246997471252923}
   m_Layer: 7
-  m_Name: EffectBlood2
+  m_Name: EffectSaintSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ ParticleSystem:
   m_GameObject: {fileID: 758894227524455196}
   serializedVersion: 7
   lengthInSec: 0.05
-  simulationSpeed: 2
+  simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -606,7 +606,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: -1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -975,7 +975,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 50
+        scalar: 10
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -1025,7 +1025,7 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 50
+      cycleCount: 10
       repeatInterval: 0.01
       probability: 1
   SizeModule:
@@ -1538,7 +1538,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: bb88296f80611004c9e40b71e662fddd, type: 3}
+    - sprite: {fileID: 21300000, guid: 639a2ee871b0718409a6f35e25b4d073, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4836,7 +4836,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1893508665
   m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0

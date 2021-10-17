@@ -6,7 +6,9 @@ public class MG_Saint_Sword : MagicScript
 {
     
     [SerializeField] private Collider2D col;
-    float speed;
+    [SerializeField] private GameObject effectDestroy;
+    [SerializeField] float speed;
+    bool Hitenemy = false;
 
     private void Start()
     {
@@ -14,37 +16,58 @@ public class MG_Saint_Sword : MagicScript
     }
     private void Update()
     {
-        if (speed <= .5f) speed += 1f * Time.deltaTime;
+        if (speed <= .1f) speed += .3f * Time.deltaTime;
         else
         {
-            if (!col.enabled) col.enabled = true;
-            speed += 4f * Time.deltaTime;
+            if (!Hitenemy)
+            {
+                col.enabled = true;
+                if (speed <= 1f) speed += .6f * Time.deltaTime;
+            }
         }
             
 
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x,-100,transform.position.z),speed);
+        if(!Hitenemy)transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x,-100,transform.position.z),speed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            
 
+            Hitenemy = true;
+
+            speed = 0;
+
+            transform.position = Vector3.MoveTowards(transform.position, transform.position, speed);
 
             collision.gameObject.GetComponent<EnemyController>().TakeDamage(999);
 
             anim.SetTrigger("LightDisable");
 
-            Destroy(gameObject);
+          
         }
 
         Invoke("AnimLightDisable", 2);
+        Invoke("Effect",1);
+
 
         Destroy(gameObject, 3f);
+
+        col.enabled = false;
+    }
+
+    private void Effect()
+    {
+        GameObject cloneEffect = Instantiate(effectDestroy, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+        Destroy(cloneEffect, 3);
     }
 
     private void AnimLightDisable()
     {
+       
+
         anim.SetTrigger("LightDisable");
     }
 }
