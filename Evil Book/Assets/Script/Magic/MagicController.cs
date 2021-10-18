@@ -23,11 +23,7 @@ public class MagicController : MonoBehaviour
 
     [SerializeField] private Animator anim;
 
-    private void Start()
-    {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    }
-
+ 
     
     public void MagicAttack()
     {
@@ -52,6 +48,8 @@ public class MagicController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
+                enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
                 GetTimeBook = SetTimeBook;
 
                 if (!getBook)
