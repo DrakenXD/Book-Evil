@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] protected GameObject Bullet;
     [SerializeField] protected Transform pointShot;
+
+    [Header("          UI")]
+    [SerializeField] protected Image UI_life;
+    [SerializeField] protected Image UI_mark;
 
     [Header("          Effects")]
     [SerializeField] protected GameObject[] effectblood;
@@ -50,6 +55,12 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    
+
+        var porcentagemDaVida = stats.MaxLife * ((double)MagicController.PorcenInstantKill / 100);
+
+        UI_mark.fillAmount = (float)porcentagemDaVida / 100;
+
         G_Atencao.SetActive(false);
 
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -60,10 +71,13 @@ public class EnemyController : MonoBehaviour
         t_idle = timeIdle;
         t_stoplooking = timeStoplooking;
 
+        
+
     }
 
     private void Update()
     {
+       
         Condicoes();
 
         switch (enemystate)
@@ -105,12 +119,21 @@ public class EnemyController : MonoBehaviour
     {
         anim.SetBool("Atacar", true);
         transform.position = new Vector2(transform.position.x,transform.position.y);
+
+        if (transform.position.x <= target.position.x)
+        {
+            transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (transform.position.x >= target.position.x)
+        {
+            transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
     }
 
     public virtual void LancarBala()
     {
         GameObject clone = Instantiate(Bullet,pointShot.position,Quaternion.identity);
-        clone.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.left * 5;
+        clone.gameObject.GetComponent<Rigidbody2D>().velocity = transform.right * 5;
         clone.gameObject.GetComponent<BulletController>().damage = stats.damage;
     }
 
@@ -285,6 +308,10 @@ public class EnemyController : MonoBehaviour
         life -= dmg;
 
         EffectBlood(0);
+
+
+        UI_life.fillAmount = life / stats.MaxLife;
+
 
         if (life <= 0)
         {
