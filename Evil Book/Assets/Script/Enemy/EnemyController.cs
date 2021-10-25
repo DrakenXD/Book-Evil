@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -13,10 +12,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected GameObject Bullet;
     [SerializeField] protected Transform pointShot;
 
-    [Header("          UI")]
-    [SerializeField] protected Image UI_life;
-    [SerializeField] protected Image UI_mark;
-
     [Header("          Effects")]
     [SerializeField] protected GameObject[] effectblood;
 
@@ -25,6 +20,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected int NumPonto;
     [SerializeField] protected float timeIdle;
     protected float t_idle;
+
+
 
     [Header("          Attetion")]
     [SerializeField] protected private GameObject G_Atencao;
@@ -55,17 +52,19 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    
 
-        var porcentagemDaVida = stats.MaxLife * ((double)MagicController.PorcenInstantKill / 100);
+        
 
-        UI_mark.fillAmount = (float)porcentagemDaVida / 100;
+
+
 
         G_Atencao.SetActive(false);
 
         target = GameObject.FindGameObjectWithTag("Player").transform;
-
+        
+       
         life = stats.MaxLife;
+
         speed = stats.MaxSpeed;
 
         t_idle = timeIdle;
@@ -307,14 +306,34 @@ public class EnemyController : MonoBehaviour
     {
         life -= dmg;
 
+        Debug.Log(life+"/" + dmg);
+
+        FindObjectOfType<UIEnemyController>().BarLife(life, stats.MaxLife);
+       
+        var porcentagemDaVida = stats.MaxLife * ((double)MagicController.PorcenInstantKill / 100);
+
+
+        FindObjectOfType<UIEnemyController>().BarVisible(true);
+
+        if (life <= porcentagemDaVida)
+        {
+            FindObjectOfType<UIEnemyController>().BarMark(life, stats.MaxLife);
+        }
+        else
+        {
+            FindObjectOfType<UIEnemyController>().BarMark((float)porcentagemDaVida,100);
+        }
+
         EffectBlood(0);
 
 
-        UI_life.fillAmount = life / stats.MaxLife;
+       
 
 
         if (life <= 0)
         {
+
+            FindObjectOfType<UIEnemyController>().BarVisible(false);
 
             Morto = true;
 
