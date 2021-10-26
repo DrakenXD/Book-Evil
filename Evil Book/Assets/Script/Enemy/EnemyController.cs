@@ -339,15 +339,13 @@ public class EnemyController : MonoBehaviour
 
             if (MagicController.getBook)
             {
-                anim.SetBool("SaintSword", true);
-                Destroy(gameObject, .5f);
-            }
-            else
-            {
-                Destroy(gameObject);
+                EffectBlood(1);
+                
             }
 
-            EffectBlood(1);
+            Destroy(gameObject);
+
+           
 
            
         }
