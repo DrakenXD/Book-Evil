@@ -133,6 +133,7 @@ public class EnemyController : MonoBehaviour
     {
         GameObject clone = Instantiate(Bullet,pointShot.position,Quaternion.identity);
         clone.gameObject.GetComponent<Rigidbody2D>().velocity = transform.right * 5;
+        clone.gameObject.GetComponent<Transform>().localEulerAngles = transform.localEulerAngles;
         clone.gameObject.GetComponent<BulletController>().damage = stats.damage;
     }
 
