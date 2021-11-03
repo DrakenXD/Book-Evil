@@ -22,7 +22,6 @@ public class EnemyController : MonoBehaviour
     protected float t_idle;
 
 
-
     [Header("          Attetion")]
     [SerializeField] protected private GameObject G_Atencao;
     [SerializeField] protected Vector2 PosLocal;  
@@ -116,7 +115,12 @@ public class EnemyController : MonoBehaviour
     }
     protected virtual void Atacar()
     {
+        anim.SetBool("Andar", false);
+
         anim.SetBool("Atacar", true);
+
+        Atacando = true;
+
         transform.position = new Vector2(transform.position.x,transform.position.y);
 
         if (transform.position.x <= target.position.x)
