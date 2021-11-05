@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private WeaponController weaponcontroller;
 
+    [Header(          "GroundCheck")]
+    [SerializeField] private bool isGrounded;
+    [SerializeField] LayerMask G_layer;
+    [SerializeField] private float G_Distance;
+    [SerializeField] private Transform G_Position;
     
 
     [Header("          Components Unity")]
@@ -25,11 +30,7 @@ public class PlayerController : MonoBehaviour
        
         AttackNormal();
 
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.velocity = new Vector2(rb.velocity.x,5);
-        }
+        JumpController();
     }
 
     public void TakeDamage(int dmg)
@@ -52,7 +53,16 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Atacar", false);
     }
    
-  
+    private void JumpController()
+    {
+        isGrounded = Physics2D.OverlapCircle(G_Position.position,G_Distance,G_layer);
+
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 5);
+        }
+
+    }
     public void Movement()
     {
         float x = Input.GetAxisRaw("Horizontal");
@@ -80,6 +90,14 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(x * stats.speed, rb.velocity.y);
     }
 
+
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(G_Position.position, G_Distance);
+    }
 }
 
 

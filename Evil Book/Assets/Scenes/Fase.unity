@@ -1007,6 +1007,7 @@ Transform:
   m_Children:
   - {fileID: 1482516389}
   - {fileID: 1143202317}
+  - {fileID: 723297107}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1061,6 +1062,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 442969185d566c0408e8b543d30794ce, type: 2}
   weaponcontroller: {fileID: 11400000, guid: 9ea4e8e1a523238429f0765165466606, type: 2}
+  isGrounded: 0
+  G_layer:
+    serializedVersion: 2
+    m_Bits: 1024
+  G_Distance: 0.1
+  G_Position: {fileID: 723297107}
   rb: {fileID: 603207345}
   anim: {fileID: 603207341}
 --- !u!114 &603207347
@@ -1155,6 +1162,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.6}
   m_EdgeRadius: 0
+--- !u!1 &723297106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 723297107}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &723297107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723297106}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.52, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 603207343}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &735691884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,7 +1324,7 @@ GameObject:
   - component: {fileID: 809885446}
   - component: {fileID: 809885445}
   - component: {fileID: 809885444}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Piso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6227,7 +6264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1143202317}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: pointAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6540,7 +6577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482516389}
   - component: {fileID: 1482516390}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Freeform Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
