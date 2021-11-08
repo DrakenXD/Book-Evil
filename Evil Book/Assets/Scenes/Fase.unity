@@ -540,23 +540,21 @@ MonoBehaviour:
   effectblood:
   - {fileID: 7247439609424933245, guid: d8e61fbdb2feba94993f2d9086dd0abf, type: 3}
   - {fileID: 758894227524455196, guid: ed15bf0b82d7db546aa83c82b6b83232, type: 3}
-  PontoParaAndar:
-  - {fileID: 1924312863}
-  - {fileID: 573128209}
-  NumPonto: 0
+  pointPatrol: []
+  IndexPoint: 0
   timeIdle: 1
-  G_Atencao: {fileID: 514952503}
-  PosLocal: {x: 0, y: 0}
+  PosLocation: {x: 0, y: 0}
   somethingdetected: 0
   timeStoplooking: 2
-  DistanciaDeObservacao: 15
-  DistanciaParaSeguir: 12
-  DistanciaParaAtacar: 10
-  Morto: 0
-  Observando: 0
-  Seguindo: 0
-  patrulhar: 0
-  Atacando: 0
+  Observationdistance: 0
+  FollowTargetDistance: 0
+  AttackDistance: 0
+  IsDead: 0
+  IsWatching: 0
+  IsFollowing: 0
+  IsPatrolling: 0
+  IsAttacking: 0
+  G_Attention: {fileID: 0}
   target: {fileID: 0}
   anim: {fileID: 263303612}
 --- !u!95 &263303612
@@ -6778,29 +6776,29 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 437addedc4b1f6d458069fd1f8d74412, type: 2}
   enemystate: 0
   life: 100
-  speed: 0
+  speed: 0.2
   Bullet: {fileID: 9156021590872730592, guid: 52fe1ae3fc0740a47ba800b9bc0a2fa9, type: 3}
   pointShot: {fileID: 1527345616}
   effectblood:
   - {fileID: 7247439609424933245, guid: d8e61fbdb2feba94993f2d9086dd0abf, type: 3}
   - {fileID: 758894227524455196, guid: ed15bf0b82d7db546aa83c82b6b83232, type: 3}
-  PontoParaAndar:
+  pointPatrol:
   - {fileID: 1924312863}
   - {fileID: 573128209}
-  NumPonto: 0
+  IndexPoint: 0
   timeIdle: 1
-  G_Atencao: {fileID: 514952503}
-  PosLocal: {x: 0, y: 0}
+  PosLocation: {x: 0, y: 0}
   somethingdetected: 0
   timeStoplooking: 2
-  DistanciaDeObservacao: 15
-  DistanciaParaSeguir: 12
-  DistanciaParaAtacar: 10
-  Morto: 0
-  Observando: 0
-  Seguindo: 0
-  patrulhar: 0
-  Atacando: 0
+  Observationdistance: 5
+  FollowTargetDistance: 3
+  AttackDistance: 0.5
+  IsDead: 0
+  IsWatching: 0
+  IsFollowing: 0
+  IsPatrolling: 0
+  IsAttacking: 0
+  G_Attention: {fileID: 0}
   target: {fileID: 0}
   anim: {fileID: 1488167053}
 --- !u!50 &1488167057
@@ -6983,7 +6981,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924312862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.27, y: -3.54, z: -8.710982}
+  m_LocalPosition: {x: 10.98, y: -3.54, z: -8.710982}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
