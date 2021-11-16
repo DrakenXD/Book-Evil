@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7371945096045781371}
   - component: {fileID: 8412796554054616464}
   - component: {fileID: 572246997471252923}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: EffectBlood2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3841,7 +3841,7 @@ ParticleSystem:
     radiusScale: 0.09
     collidesWith:
       serializedVersion: 2
-      m_Bits: 7
+      m_Bits: 1024
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -4835,7 +4835,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1893508665
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_RenderMode: 0
   m_SortMode: 0

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameMagic: Saint Sword
   damage: 999
+  icon: {fileID: 21300000, guid: 2b7b71e1b5d44d84d982e18ce6135ab5, type: 3}
   king_of_magic: 0
   MagicPrefab: {fileID: 3036047159818673965, guid: 6b5d4032338d9ef42b59188e44b093e6, type: 3}

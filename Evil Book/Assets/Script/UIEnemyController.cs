@@ -16,22 +16,27 @@ public class UIEnemyController : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.localPosition = new Vector3(enemy.position.x -1.8f,1.2f,1.8f);
+        transform.position= new Vector3(enemy.position.x + .4f,enemy.position.y + .8f,transform.position.z);
         transform.localEulerAngles = new Vector3(0 , 0, 0);
+        
     }
 
     public void BarLife(float min, float max)
     {
         UI_barLife.fillAmount = min / max;
+      
     }
 
     public void BarMark(float min, float max)
     {
         UI_mark.fillAmount = min / max;
+      
     }
 
     public void BarVisible(bool active)
     {
         UI_canvas.SetActive(active);
     }
+
+  
 }

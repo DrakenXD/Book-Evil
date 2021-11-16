@@ -146,7 +146,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("          Components Unity")]
     [SerializeField] private Animator anim;
-
+    [SerializeField] private GameObject DestroyObject;
 
     // Start is called before the first frame update
     void Start()
@@ -189,7 +189,7 @@ public class EnemyController : MonoBehaviour
                 SeeLocation();
                 break;
             case EnemyState.Attack:
-                G_Attention.SetActive(true);
+                
                 Attack();
                 break;
         }
@@ -206,31 +206,35 @@ public class EnemyController : MonoBehaviour
             if (Vector2.Distance(target.position,transform.position) <= AttackDistance)
             {
                 enemystate = EnemyState.Attack;
+                IsAttacking = true;
             }
             else
             {
-                if (Vector2.Distance(target.position, transform.position) <= FollowTargetDistance)
+                if (IsAttacking==false)
                 {
-                    enemystate = EnemyState.Follow;
-                }
-                else
-                {
-                    if (Vector2.Distance(target.position, transform.position) <= Observationdistance)
+                    if (Vector2.Distance(target.position, transform.position) <= FollowTargetDistance)
                     {
-                        enemystate = EnemyState.SeeLocation;
-
-                        if (!IsWatching)
-                        {
-                            PosLocation = new Vector2(target.position.x, transform.position.y);
-                            
-                            IsWatching = true;
-                        }
-                            
-                      
+                        enemystate = EnemyState.Follow;
                     }
                     else
                     {
-                        if(!IsWatching) enemystate = EnemyState.Patrol;
+                        if (Vector2.Distance(target.position, transform.position) <= Observationdistance)
+                        {
+                            enemystate = EnemyState.SeeLocation;
+
+                            if (!IsWatching)
+                            {
+                                PosLocation = new Vector2(target.position.x, transform.position.y);
+
+                                IsWatching = true;
+                            }
+
+
+                        }
+                        else
+                        {
+                            if (!IsWatching) enemystate = EnemyState.Patrol;
+                        }
                     }
                 }
             }
@@ -333,11 +337,13 @@ public class EnemyController : MonoBehaviour
     }
     protected void Attack()
     {
+        transform.position = transform.position;
+
         anim.SetBool("Andar", false);
 
         anim.SetBool("Atacar", true);
 
-
+        
 
         if (transform.position.x <= target.position.x)
         {
@@ -348,12 +354,22 @@ public class EnemyController : MonoBehaviour
             transform.localEulerAngles = new Vector3(0, 180, 0);
         }
     }
+    public virtual void G_attetion()
+    {
+        G_Attention.SetActive(true);
+    }
     public virtual void Shoot()
     {
         GameObject clone = Instantiate(Bullet, pointShot.position, Quaternion.identity);
         clone.gameObject.GetComponent<Rigidbody2D>().velocity = transform.right * 5;
         clone.gameObject.GetComponent<Transform>().localEulerAngles = transform.localEulerAngles;
         clone.gameObject.GetComponent<BulletController>().damage = stats.damage;
+
+        G_Attention.SetActive(false);
+
+        IsWatching = false;
+
+        IsAttacking = false;
     }
 
 
@@ -386,10 +402,13 @@ public class EnemyController : MonoBehaviour
 
         if (life <= porcentagemDaVida)
         {
+            FindObjectOfType<UIBook>().UpdateBook(true);
+
             FindObjectOfType<UIEnemyController>().BarMark(life, stats.MaxLife);
         }
         else
         {
+           
             FindObjectOfType<UIEnemyController>().BarMark((float)porcentagemDaVida, 100);
         }
 
@@ -401,6 +420,8 @@ public class EnemyController : MonoBehaviour
 
         if (life <= 0)
         {
+            FindObjectOfType<UIBook>().UpdateBook(false);
+
 
             FindObjectOfType<UIEnemyController>().BarVisible(false);
 
@@ -412,7 +433,7 @@ public class EnemyController : MonoBehaviour
 
             }
 
-            Destroy(gameObject);
+            Destroy(DestroyObject);
 
 
 

@@ -23,8 +23,11 @@ public class MagicController : MonoBehaviour
 
     [SerializeField] private Animator anim;
 
- 
-    
+    private void Start()
+    {
+        FindObjectOfType<UIBook>().SetMagic(magic.icon);
+    }
+
     public void MagicAttack()
     {
       
@@ -40,6 +43,8 @@ public class MagicController : MonoBehaviour
     private void Update()
     {
         Magics();
+
+       
     }
 
     public void Magics()

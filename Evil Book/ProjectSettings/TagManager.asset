@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Enemy
   - HitMagic
   - Ground
-  - 
-  - 
+  - StopMagic
+  - EffectBlood
   - 
   - 
   - 
