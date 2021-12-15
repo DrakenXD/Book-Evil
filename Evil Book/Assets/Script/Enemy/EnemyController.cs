@@ -397,7 +397,6 @@ public class EnemyController : MonoBehaviour
 
         var porcentagemDaVida = stats.MaxLife * ((double)MagicController.PorcenInstantKill / 100);
 
-
         FindObjectOfType<UIEnemyController>().BarVisible(true);
 
         if (life <= porcentagemDaVida)
@@ -437,7 +436,8 @@ public class EnemyController : MonoBehaviour
 
 
 
-
+            GameController.instance.UpdateAmountEnemies();
+            GameController.instance.enemiesAlived--;
         }
 
 

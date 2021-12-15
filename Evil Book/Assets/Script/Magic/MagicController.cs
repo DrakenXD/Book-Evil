@@ -8,7 +8,7 @@ public class MagicController : MonoBehaviour
 
     public MagicStats magic;
 
-    [SerializeField] private GameObject[] enemies;
+  
     [SerializeField] private Transform EnemyPos;
 
 
@@ -47,13 +47,14 @@ public class MagicController : MonoBehaviour
        
     }
 
+    
     public void Magics()
     {
         if (GetTimeBook <= 0)
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                
 
                 GetTimeBook = SetTimeBook;
 
@@ -71,13 +72,11 @@ public class MagicController : MonoBehaviour
         }
         else if (GetTimeBook > 0) GetTimeBook -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && getBook)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && getBook && GameController.instance.enemiesAlived > 0)
         {
-            
-
-            foreach (GameObject enemy in enemies)
+            foreach (GameObject enemy in GameController.instance.enemies)
             {
-                
+
 
                 var porcentagemDaVida = enemy.gameObject.GetComponent<EnemyController>().stats.MaxLife * ((double)PorcenInstantKill / 100);
 
@@ -92,6 +91,8 @@ public class MagicController : MonoBehaviour
 
                 }
             }
+
+            
             
         }
     }
