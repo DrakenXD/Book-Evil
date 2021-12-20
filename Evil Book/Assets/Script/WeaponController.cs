@@ -7,12 +7,16 @@ public class WeaponController : ScriptableObject
 {
     public Sprite S_icon;
     public GameObject effects;
-    public AnimationClip attack;
 
-         
-
-    public AnimationClip GetAttackAnimation()
-    {
-        return attack;
-    }
+    public OverriderAnimations[] overriderController;
+   
 }
+
+[System.Serializable]
+public class OverriderAnimations
+{
+    public string nameAnim;
+    public AnimatorOverrideController overriderController;
+}
+
+

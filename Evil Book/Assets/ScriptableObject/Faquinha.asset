@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef168310e99f6cf47b46afc8adda32b3, type: 3}
-  m_Name: WeaponNew
+  m_Name: Faquinha
   m_EditorClassIdentifier: 
   S_icon: {fileID: 0}
   effects: {fileID: 6212295604112002384, guid: 602cdf2d27d019540b19b174a9341333, type: 3}
-  attack: {fileID: 7400000, guid: d1541e601c9f64b4ca8d87e4788893a3, type: 2}
+  overriderController:
+  - nameAnim: 
+    overriderController: {fileID: 22100000, guid: a1a4e825f9436b744aac794f8dbc3f94, type: 2}

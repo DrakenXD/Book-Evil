@@ -11,16 +11,21 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private WeaponController weaponcontroller;
 
-    [Header(          "GroundCheck")]
+    [Header("            GroundCheck")]
     [SerializeField] private bool isGrounded;
     [SerializeField] LayerMask G_layer;
     [SerializeField] private float G_Distance;
     [SerializeField] private Transform G_Position;
-    
 
+ 
     [Header("          Components Unity")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator anim;
+
+    private void Start()
+    {
+        SetAnimations();
+    }
 
 
     // Update is called once per frame
@@ -69,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         if(x != 0)
         {
-            anim.SetBool("Move",true);
+            anim.SetBool("Move", true);
 
             if (x <= -0.01)
             {
@@ -91,6 +96,17 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
+    public void SetAnimations()
+    {     
+        if(weaponcontroller != null)
+        {
+            for (int i = 0; i < weaponcontroller.overriderController.Length; i++) 
+            {
+                anim.runtimeAnimatorController = weaponcontroller.overriderController[i].overriderController;
+            }        
+        }
+    }
 
 
     private void OnDrawGizmosSelected()

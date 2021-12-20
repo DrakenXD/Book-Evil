@@ -8,6 +8,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] protected LayerMask A_layer;
     [SerializeField] protected float A_radius;
     [SerializeField] protected int damage;
+    
     public void Attack()
     {
         Collider2D[] hitInfo = Physics2D.OverlapCircleAll(pointAttack.position,A_radius,A_layer);

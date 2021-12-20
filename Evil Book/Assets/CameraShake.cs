@@ -11,7 +11,7 @@ public class CameraShake : MonoBehaviour
     public void Shake(float force)
     {
         FindObjectOfType<CinemachineImpulseSource>().GenerateImpulse(force);
-        
+
      
 
 
@@ -19,8 +19,14 @@ public class CameraShake : MonoBehaviour
 
     private void Update()
     {
-        mainCamera.rotation = Quaternion.Euler(0, 0, 0);
+        if (mainCamera.localRotation != Quaternion.Euler(0, 0, 0) )
+        {
+            mainCamera.localRotation = Quaternion.Euler(0, 0, 0);
+    
+        }
     }
+
+    
 
    
  
