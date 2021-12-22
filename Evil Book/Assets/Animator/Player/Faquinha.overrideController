@@ -6,8 +6,12 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Animator Override Controller
+  m_Name: Faquinha
   m_Controller: {fileID: 9100000, guid: c75bf75de6714434e94e777ee7ebe1c9, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 7ccfe72a3b2d37f4fa2fb053ddb8fa68, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 7ccfe72a3b2d37f4fa2fb053ddb8fa68, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d1541e601c9f64b4ca8d87e4788893a3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2e0f5fed1d34326409a457d37e30346a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4c8e6b88ffe0f534faa2618c6bd58165, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4c8e6b88ffe0f534faa2618c6bd58165, type: 2}
